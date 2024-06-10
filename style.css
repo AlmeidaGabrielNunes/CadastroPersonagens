@@ -29,7 +29,7 @@ label {
     font-weight: bold;
 }
 
-input {
+input, textarea {
     margin-top: 5px;
     padding: 10px;
     font-size: 16px;
@@ -60,6 +60,14 @@ button:hover {
     background-color: #f9f9f9;
     padding: 10px;
     margin-top: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid #ddd
+}
+#toast-container > .toast-success {
+    background-color: #28a745;
+    color: white;
+}
+
+
+.btn-equal {
+    width: 48%; /* Ajuste essa largura conforme necessário */
 }

@@ -1,44 +1,40 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    loadCharacters();
-});
-
-document.getElementById('back-to-form').addEventListener('click', function() {
-    window.location.href = 'index.html';
-});
-
-function loadCharacters() {
-    let characters = JSON.parse(localStorage.getItem('characters')) || [];
+document.addEventListener('DOMContentLoaded', function() {
+    const characters = JSON.parse(localStorage.getItem('characters')) || [];
     const characterList = document.getElementById('character-list');
-    characterList.innerHTML = ''; // Clear the list before adding characters
 
-    characters.forEach((character, index) => {
+    characters.forEach(character => {
         const characterItem = document.createElement('div');
-        characterItem.className = 'character-item';
+        characterItem.className = 'list-group-item';
 
-        characterItem.innerHTML = `
-            <p><strong>Nome:</strong> ${character.name}</p>
+        const characterImage = document.createElement('img');
+        characterImage.src = character.image;
+        characterImage.alt = `${character.name} - Imagem`;
+        characterImage.className = 'img-thumbnail me-3';
+        characterImage.style.width = '100px';
+        characterImage.style.height = '100px';
+
+        const characterInfo = document.createElement('div');
+        characterInfo.innerHTML = `
+            <h2>${character.name}</h2>
             <p><strong>Nacionalidade:</strong> ${character.nationality}</p>
             <p><strong>Data de Nascimento:</strong> ${character.birthdate}</p>
             <p><strong>Raça:</strong> ${character.race}</p>
-            <p><strong>Classe:</strong> ${character.characterClass}</p>
+            <p><strong>Classe:</strong> ${character.classType}</p>
             <p><strong>Altura:</strong> ${character.height}</p>
             <p><strong>Religião:</strong> ${character.religion}</p>
-            <button onclick="removeCharacter(${index})">Remover</button>
+            <p><strong>Personalidade:</strong> ${character.personality}</p>
         `;
 
+        const characterDetails = document.createElement('div');
+        characterDetails.className = 'd-flex align-items-start';
+        characterDetails.appendChild(characterImage);
+        characterDetails.appendChild(characterInfo);
+
+        characterItem.appendChild(characterDetails);
         characterList.appendChild(characterItem);
     });
-}
 
-function removeCharacter(index) {
-    let characters = JSON.parse(localStorage.getItem('characters')) || [];
-    if (characters[index]) {
-        characters.splice(index, 1);
-        localStorage.setItem('characters', JSON.stringify(characters));
-        loadCharacters();
-        alert("Personagem removido com sucesso!");
-    } else {
-        alert("Operação falhou. Personagem não encontrado.");
-    }
-}
-
+    document.getElementById('back-to-form').addEventListener('click', function() {
+        window.location.href = 'index.html';
+    });
+});
