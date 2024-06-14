@@ -27,20 +27,48 @@ document.getElementById('character-form').addEventListener('submit', function(ev
             personality
         };
 
-        // Salva o personagem no localStorage
-        const characters = JSON.parse(localStorage.getItem('characters')) || [];
-        characters.push(character);
+        const editIndex = document.getElementById('edit-index').value;
+        let characters = JSON.parse(localStorage.getItem('characters')) || [];
+
+        if (editIndex) {
+            // Atualiza o personagem existente
+            characters[editIndex] = character;
+        } else {
+            // Adiciona um novo personagem
+            characters.push(character);
+        }
+
         localStorage.setItem('characters', JSON.stringify(characters));
 
         // Limpa o formulário
         document.getElementById('character-form').reset();
 
         // Exibe notificação de sucesso
-        toastr.success('Personagem cadastrado com sucesso!');
+        toastr.success('Personagem salvo com sucesso!');
     };
     reader.readAsDataURL(image);
 });
 
 document.getElementById('view-list').addEventListener('click', function() {
     window.location.href = 'list.html';
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const editIndex = localStorage.getItem('editIndex');
+    if (editIndex !== null) {
+        const characters = JSON.parse(localStorage.getItem('characters'));
+        const character = characters[editIndex];
+
+        document.getElementById('name').value = character.name;
+        document.getElementById('nationality').value = character.nationality;
+        document.getElementById('birthdate').value = character.birthdate;
+        document.getElementById('race').value = character.race;
+        document.getElementById('class').value = character.classType;
+        document.getElementById('height').value = character.height;
+        document.getElementById('religion').value = character.religion;
+        document.getElementById('personality').value = character.personality;
+        document.getElementById('edit-index').value = editIndex;
+
+        localStorage.removeItem('editIndex');
+    }
 });

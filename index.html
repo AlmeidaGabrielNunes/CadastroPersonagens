@@ -12,6 +12,7 @@
     <div class="container">
         <h1>Cadastro de Personagem</h1>
         <form id="character-form">
+            <input type="hidden" id="edit-index" name="edit-index">
             <div class="form-group">
                 <label for="name">Nome do Personagem:</label>
                 <input type="text" id="name" name="name" class="form-control" required>
@@ -68,7 +69,7 @@
 
             <!-- Alinhar botões lado a lado -->
             <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary btn-equal">Cadastrar</button>
+                <button type="submit" class="btn btn-primary btn-equal">Salvar</button>
                 <button id="view-list" type="button" class="btn btn-secondary btn-equal">Ver Lista de Personagens</button>
             </div>
         </form>
